@@ -1,25 +1,20 @@
-<h1 id="notice"><%= notice %></h1>
-<h1>Noticia</h1><br><br>
-<p>
-  <strong>Titulo:</strong>
-  <%= @post.titulo %>
-</p>
+<%- model_class = Post -%>
+<div class="page-header">
+  <h1>Noticia</h1>
+</div>
 
-<p>
-  <strong>Bajada:</strong>
-  <%= @post.bajada %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:Titulo) %>:</strong></dt>
+  <dd><%= @post.titulo %></dd>
+  <br>
+  <dt><strong><%= model_class.human_attribute_name(:Bajada) %>:</strong></dt>
+  <dd><%= @post.bajada %></dd>
+  <br>
+  <dt><strong><%= model_class.human_attribute_name(:Cuerpo) %>:</strong></dt>
+  <dd><%= @post.body %></dd>
+</dl>
 
-<p>
-  <strong>Cuerpo:</strong>
-  <%= @post.body %>
-</p>
-
-<p>
-  <strong>Fecha:</strong>
-  <%= @post.created_at %>
-</p>
-<br><br><br><br>
+<div class="dl-horizontal">
 <strong>COMENTARIOS:</strong>
 <br>
 <strong>------------------------------------</strong>
@@ -27,30 +22,36 @@
   <p>
     <strong>Nombre:</strong>
     <%= com.usuario %>
+  </p>
+  <p>
+    <strong>Publicado:</strong>
     <%= com.created_at %>
   </p>
   <p>
-    <strong>Comentarios:</strong>
+    <strong>Comentario:</strong>
     <%= com.comentario %>
   </p>
   <br>
 <% if current_user %>
-  <td><%= link_to 'Destroy', com, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+  <td><%= link_to 'Eliminar', com, method: :delete, data: { confirm: 'Are you sure?' },   :class => 'btn btn-xs btn-danger' %></td><% end %>
   <br>
   <strong>------------------------------------</strong>
 <% end %>
+</div>
 <br><br><br><br>
 <strong>NUEVO COMENTARIO:</strong>
 <br>
 <%= render 'comments/form', comment: @comment %>
 
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              posts_path, :class => 'btn btn-default'  %>
 <% if current_user %>
-  <td><%= link_to 'Edit', edit_post_path(@post) %></td>
-  <td><%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  <br>
-  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to 'Login', new_user_session_path %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_post_path(@post), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              post_path(@post),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
 <% end %>
-<br>
-<%= link_to 'Back', posts_path %>
