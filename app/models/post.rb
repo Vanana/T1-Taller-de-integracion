@@ -6,15 +6,4 @@ class Post < ApplicationRecord
   validates_presence_of :body
 
 
-
-  def publish_now
-    !self.fecha.nil?
-  end
-
-  def publish_now=(value)
-    if value == "1" && self.fecha.nil?
-      self.fecha = Date.current
-    end
-  end
-
 end

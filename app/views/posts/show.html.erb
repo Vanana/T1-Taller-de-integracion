@@ -33,6 +33,10 @@
     <strong>Comentarios:</strong>
     <%= com.comentario %>
   </p>
+  <br>
+<% if current_user %>
+  <td><%= link_to 'Destroy', com, method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
+  <br>
   <strong>------------------------------------</strong>
 <% end %>
 <br><br><br><br>
