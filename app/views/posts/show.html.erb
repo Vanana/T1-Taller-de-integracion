@@ -1,0 +1,52 @@
+<h1 id="notice"><%= notice %></h1>
+<h1>Noticia</h1><br><br>
+<p>
+  <strong>Titulo:</strong>
+  <%= @post.titulo %>
+</p>
+
+<p>
+  <strong>Bajada:</strong>
+  <%= @post.bajada %>
+</p>
+
+<p>
+  <strong>Cuerpo:</strong>
+  <%= @post.body %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @post.created_at %>
+</p>
+<br><br><br><br>
+<strong>COMENTARIOS:</strong>
+<br>
+<strong>------------------------------------</strong>
+<% @post.comments.each do |com| %>
+  <p>
+    <strong>Nombre:</strong>
+    <%= com.usuario %>
+    <%= com.created_at %>
+  </p>
+  <p>
+    <strong>Comentarios:</strong>
+    <%= com.comentario %>
+  </p>
+  <strong>------------------------------------</strong>
+<% end %>
+<br><br><br><br>
+<strong>NUEVO COMENTARIO:</strong>
+<br>
+<%= render 'comments/form', comment: @comment %>
+
+<% if current_user %>
+  <td><%= link_to 'Edit', edit_post_path(@post) %></td>
+  <td><%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <br>
+  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'Login', new_user_session_path %>
+<% end %>
+<br>
+<%= link_to 'Back', posts_path %>
